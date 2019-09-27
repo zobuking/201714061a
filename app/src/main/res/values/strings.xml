@@ -14,4 +14,7 @@
 	<string name="gyroscope">Gyroscope</string>
 	<string name="proximity">Proximity</string>
 	<string name="shake_detection">Shake Detection</string>
+	<string name="nan">NaN</string>
+	<string name="x_axis">X axis : </string>
+	<string name="y_axis">Y axis</string>
 </resources>
