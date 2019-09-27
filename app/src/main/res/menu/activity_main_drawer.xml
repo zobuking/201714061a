@@ -5,10 +5,17 @@
 
 	<group android:checkableBehavior="single">
 		<item
-			android:id="@+id/nav_home"
-			android:icon="@drawable/ic_menu_camera"
-			android:title="@string/menu_home" />
-
+			android:id="@+id/nav_Accelerometer"
+			android:title="@string/accelerometer" />
+		<item
+			android:id="@+id/nav_Gyroscope"
+			android:title="@string/gyroscope" />
+		<item
+			android:id="@+id/nav_Proximity"
+			android:title="@string/proximity" />
+		<item
+			android:id="@+id/nav_ShakeDetection"
+			android:title="@string/shake_detection" />
 	</group>
 
 

@@ -3,13 +3,26 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/mobile_navigation"
-	app:startDestination="@+id/nav_home">
+	app:startDestination="@+id/nav_Accelerometer">
 
 	<fragment
-		android:id="@+id/nav_home"
-		android:name="com.idp.group1.assignment201714029.ui.home.HomeFragment"
-		android:label="@string/menu_home"
-		tools:layout="@layout/fragment_home" />
-
-
+		android:id="@+id/nav_Accelerometer"
+		android:name="com.idp.group1.assignment201714029.Accelerometer"
+		android:label="@string/accelerometer"
+		tools:layout="@layout/fragment_accelerometer" />
+	<fragment
+		android:id="@+id/nav_Gyroscope"
+		android:name="com.idp.group1.assignment201714029.Gyroscope"
+		android:label="@string/gyroscope"
+		tools:layout="@layout/fragment_gyroscope" />
+	<fragment
+		android:id="@+id/nav_Proximity"
+		android:name="com.idp.group1.assignment201714029.Proximity"
+		android:label="@string/proximity"
+		tools:layout="@layout/fragment_proximity" />
+	<fragment
+		android:id="@+id/nav_ShakeDetection"
+		android:name="com.idp.group1.assignment201714029.Shake_detection"
+		android:label="@string/shake_detection"
+		tools:layout="@layout/fragment_shake_detection" />
 </navigation>
