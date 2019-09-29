@@ -17,4 +17,5 @@
 	<string name="nan">NaN</string>
 	<string name="x_axis">X axis : </string>
 	<string name="y_axis">Y axis</string>
+	<string name="z_axis">z Axis</string>
 </resources>
