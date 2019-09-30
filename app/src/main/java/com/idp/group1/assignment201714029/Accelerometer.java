@@ -78,7 +78,7 @@ public class Accelerometer extends Fragment implements SensorEventListener {
 //		y = y * 57.2957795f;
 //		z = z * 57.2957795f;
 
-		if (yAccelerometer <= 5.0 && yAccelerometer >= -5.0) {
+		if (yAccelerometer <= 2.0 && yAccelerometer >= -2.0) {
 //			Toast.makeText(getContext(), "entered", Toast.LENGTH_SHORT).show();
 			linearLayout.setBackgroundColor(Color.CYAN);
 		}

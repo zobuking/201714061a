@@ -20,4 +20,6 @@
 	<string name="z_axis">z Axis</string>
 	<string name="maximum_value_of_proximity_sensor">Maximum Value of Proximity Sensor</string>
 	<string name="current_value_of_proximity_sensor">Current Value of Proximity SenSor</string>
+	<string name="load_data">load data</string>
+	<string name="prev_data">Prev Data :</string>
 </resources>
