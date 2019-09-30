@@ -29,7 +29,7 @@
 				android:layout_margin="20dp"
 				android:padding="10dp"/>
 			<TextView
-				android:id="@+id/xAxisID"
+				android:id="@+id/xAxisAccelerometerID"
 				android:layout_weight="2"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
 				android:layout_margin="20dp"
 				android:padding="10dp"/>
 			<TextView
-				android:id="@+id/yAxisID"
+				android:id="@+id/yAxisAccelerometerID"
 				android:layout_weight="2"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
 				android:layout_margin="20dp"
 				android:padding="10dp"/>
 			<TextView
-				android:id="@+id/zAxisID"
+				android:id="@+id/zAxisAccelerometerID"
 				android:layout_weight="2"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"

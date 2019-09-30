@@ -3,12 +3,92 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:orientation="vertical"
 	tools:context=".Gyroscope">
 
-	<!-- TODO: Update blank fragment layout -->
-	<TextView
+	<LinearLayout
+		android:id="@+id/gyroscopeID"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:text="@string/hello_blank_fragment" />
+		android:orientation="vertical"
+		android:layout_gravity="center"
+		android:gravity="center">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:layout_marginLeft="10dp"
+			android:weightSum="3">
+			<TextView
+				android:layout_weight="1"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:text="@string/x_axis"
+				android:textSize="25sp"
+				android:layout_margin="20dp"
+				android:padding="10dp"/>
+			<TextView
+				android:id="@+id/xAxisGyroscopeID"
+				android:layout_weight="2"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:text="@string/nan"
+				android:textSize="25sp"
+				android:layout_margin="20dp"
+				android:padding="10dp"/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_marginLeft="10dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:weightSum="3">
+			<TextView
+				android:layout_weight="1"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:text="@string/y_axis"
+				android:textSize="25sp"
+				android:layout_margin="20dp"
+				android:padding="10dp"/>
+			<TextView
+				android:id="@+id/yAxisGyroscopeID"
+				android:layout_weight="2"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:text="@string/nan"
+				android:textSize="25sp"
+				android:layout_margin="20dp"
+				android:padding="10dp"/>
+		</LinearLayout>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:layout_marginLeft="10dp"
+			android:weightSum="3">
+			<TextView
+				android:layout_weight="1"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:text="@string/z_axis"
+				android:textSize="25sp"
+				android:layout_margin="20dp"
+				android:padding="10dp"/>
+			<TextView
+				android:id="@+id/zAxisGyroscopeID"
+				android:layout_weight="2"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:text="@string/nan"
+				android:textSize="25sp"
+				android:layout_margin="20dp"
+				android:padding="10dp"/>
+		</LinearLayout>
+
+	</LinearLayout>
+
 
 </FrameLayout>

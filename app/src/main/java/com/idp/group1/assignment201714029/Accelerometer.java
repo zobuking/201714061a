@@ -26,9 +26,10 @@ import android.widget.Toast;
  */
 public class Accelerometer extends Fragment implements SensorEventListener {
 
-	private TextView xAxisText, yAxisText, zAxisText;
-	private Fragment fragment;
+	private TextView xAxisAccelerometerText, yAxisAccelerometerText, zAxisAccelerometerText;
 	private LinearLayout linearLayout;
+	private SensorManager sensorManager;
+	private Sensor accelerometer;
 
 	public Accelerometer() {
 		// Required empty public constructor
@@ -48,29 +49,36 @@ public class Accelerometer extends Fragment implements SensorEventListener {
 		linearLayout = view.findViewById(R.id.accelerometerID);
 //		fragment = (Fragment) getFragmentManager().findFragmentById(R.id.accelerometerID);
 
-		SensorManager sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-		Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+		sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+		accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		sensorManager.registerListener(this, accelerometer, sensorManager.SENSOR_DELAY_NORMAL);
 
-		xAxisText = (TextView) view.findViewById(R.id.xAxisID);
-		yAxisText = (TextView) view.findViewById(R.id.yAxisID);
-		zAxisText = (TextView) view.findViewById(R.id.zAxisID);
+		if (accelerometer == null) {
+			Toast.makeText(getContext(), "No Accelerometer Sensor Found", Toast.LENGTH_SHORT).show();
+		}
+		else {
+			Toast.makeText(getContext(), "Accelerometer Sensor Working", Toast.LENGTH_SHORT).show();
+		}
+
+		xAxisAccelerometerText = (TextView) view.findViewById(R.id.xAxisAccelerometerID);
+		yAxisAccelerometerText = (TextView) view.findViewById(R.id.yAxisAccelerometerID);
+		zAxisAccelerometerText = (TextView) view.findViewById(R.id.zAxisAccelerometerID);
 
 		return view;
 	}
 
 	@Override
 	public void onSensorChanged(SensorEvent sensorEvent) {
-		double x = (double) sensorEvent.values[0];
-		double y = (double) sensorEvent.values[1];
-		double z = (double) sensorEvent.values[2];
+		double xAccelerometer = (double) sensorEvent.values[0];
+		double yAccelerometer = (double) sensorEvent.values[1];
+		double zAccelerometer = (double) sensorEvent.values[2];
 
 //		x = x * 57.2957795f;
 //		y = y * 57.2957795f;
 //		z = z * 57.2957795f;
 
-		if (y <= 5.0 && y >= -5.0) {
+		if (yAccelerometer <= 5.0 && yAccelerometer >= -5.0) {
 //			Toast.makeText(getContext(), "entered", Toast.LENGTH_SHORT).show();
 			linearLayout.setBackgroundColor(Color.CYAN);
 		}
@@ -78,13 +86,13 @@ public class Accelerometer extends Fragment implements SensorEventListener {
 			linearLayout.setBackgroundColor(Color.WHITE);
 		}
 
-		x = Math.round(x * 1000.0) / 1000.0;
-		y = Math.round(y * 1000.0) / 1000.0;
-		z = Math.round(z * 1000.0) / 1000.0;
+		xAccelerometer = Math.round(xAccelerometer * 1000.0) / 1000.0;
+		yAccelerometer = Math.round(yAccelerometer * 1000.0) / 1000.0;
+		zAccelerometer = Math.round(zAccelerometer * 1000.0) / 1000.0;
 
-		xAxisText.setText(String.valueOf(x));
-		yAxisText.setText(String.valueOf(y));
-		zAxisText.setText(String.valueOf(z));
+		xAxisAccelerometerText.setText(String.valueOf(xAccelerometer));
+		yAxisAccelerometerText.setText(String.valueOf(yAccelerometer));
+		zAxisAccelerometerText.setText(String.valueOf(zAccelerometer));
 
 	}
 
@@ -92,4 +100,18 @@ public class Accelerometer extends Fragment implements SensorEventListener {
 	public void onAccuracyChanged(Sensor sensor, int i) {
 
 	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		sensorManager.unregisterListener(this);
+	}
+
 }
