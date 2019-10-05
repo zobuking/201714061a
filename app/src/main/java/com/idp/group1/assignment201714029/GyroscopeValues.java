@@ -30,7 +30,7 @@ import java.util.List;
 public class GyroscopeValues extends Fragment {
 
 	ListView listView;
-	private List <Value> data;
+	private ArrayList<Value> gyroscopeDataList;
 	DatabaseReference databaseReference;
 	int num = 1;
 
@@ -45,29 +45,32 @@ public class GyroscopeValues extends Fragment {
 
 		Toast.makeText(getContext(), "onCreate", Toast.LENGTH_SHORT).show();
 		// Inflate the layout for this fragment
+
 		View view =  inflater.inflate(R.layout.fragment_gyroscope_values, container, false);
 		listView = view.findViewById(R.id.listViewID);
 
+		retrieve();
+
+		return view;
+	}
+
+	private void retrieve() {
 		databaseReference = FirebaseDatabase.getInstance().getReference("Gyroscope");
-		data = new ArrayList<Value>();
-
+		gyroscopeDataList = new ArrayList<>();
 //		list.add(new Value(-1, -1, -1));
-
-
-//		CustomAdapter customAdapter = new CustomAdapter(getActivity(), data);
 
 		num = 1;
 
 		databaseReference.addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				data.clear();
-				for (DataSnapshot i : dataSnapshot.getChildren()) {
-					Value v = i.getValue(Value.class);
-					data.add(v);
+				gyroscopeDataList.clear();
+				for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//					Value v = ds.getValue(Value.class);
+					gyroscopeDataList.add(ds.getValue(Value.class));
 
 //					Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-					Toast.makeText(getActivity(), v.toString() + " next" + num, Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(),  " next" + num, Toast.LENGTH_SHORT).show();
 //					data.add(v);
 					num++;
 				}
@@ -75,15 +78,14 @@ public class GyroscopeValues extends Fragment {
 
 			@Override
 			public void onCancelled(DatabaseError databaseError) {
-
+				Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
 			}
 		});
 
-		Toast.makeText(getActivity(), String.valueOf(data.size()), Toast.LENGTH_SHORT).show();
-//		listView.setAdapter(customAdapter);
+		CustomAdapter customAdapter = new CustomAdapter(getActivity(), gyroscopeDataList);
+		listView.setAdapter(customAdapter);
 
-
-		return view;
+		Toast.makeText(getActivity(), String.valueOf(gyroscopeDataList.size()), Toast.LENGTH_SHORT).show();
 	}
 
 }
