@@ -53,8 +53,8 @@ public class Proximity extends Fragment implements SensorEventListener {
 			Toast.makeText(getContext(), "Proximity Sensor Working", Toast.LENGTH_SHORT).show();
 		}
 
-		xAxisProximityText = (TextView) view.findViewById(R.id.xAxisProximityID);
-		yAxisProximityText = (TextView) view.findViewById(R.id.yAxisProximityID);
+		xAxisProximityText = view.findViewById(R.id.xAxisProximityID);
+		yAxisProximityText = view.findViewById(R.id.yAxisProximityID);
 
 		return view;
 	}

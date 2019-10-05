@@ -26,4 +26,5 @@
 	<string name="shake_me">Shake Me</string>
 	<string name="gyroscope_value">Gyroscope Values</string>
 	<string name="text">text</string>
+	<string name="map">Map</string>
 </resources>

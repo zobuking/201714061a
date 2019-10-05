@@ -30,5 +30,9 @@
 		android:name="com.idp.group1.assignment201714029.GyroscopeValues"
 		android:label="@string/gyroscope_value"
 		tools:layout="@layout/fragment_gyroscope_values"/>
-
+	<fragment
+		android:id="@+id/nav_map"
+		android:name="com.idp.group1.assignment201714029.map"
+		android:label="@string/map"
+		tools:layout="@layout/fragment_map"/>
 </navigation>
