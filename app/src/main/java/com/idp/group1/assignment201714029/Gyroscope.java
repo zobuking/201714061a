@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,26 +51,12 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 		prevOrientation = 0;
 		database = FirebaseDatabase.getInstance();
 		myRef = database.getReference("Gyroscope");
-//		prevData = view.findViewById(R.id.loadDataID);
 
-//		myRef.addValueEventListener(new ValueEventListener() {
-//			@Override
-//			public void onDataChange(DataSnapshot dataSnapshot) {
-//				String Value = dataSnapshot.getValue(String.class);
-//				prevData.setText("Previous Data = " + Value);
-//			}
-//
-//			@Override
-//			public void onCancelled(DatabaseError error) {
-//				// Failed to read Value
-//				Log.w(TAG, "Failed to read Value.", error.toException());
-//			}
-//		});
 		sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
 		gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 		sensorManager.registerListener(this, gyroscope, sensorManager.SENSOR_DELAY_NORMAL);
 
-		myRef.child(myRef.push().getKey()).setValue(new Value(-5, -7, 0));
+//		myRef.child(myRef.push().getKey()).setValue(new Value(-5, -7, 0));
 
 		if (gyroscope == null) {
 			Toast.makeText(getContext(), "No Gyroscope Sensor Found", Toast.LENGTH_SHORT).show();
@@ -78,32 +65,13 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 			Toast.makeText(getContext(), "Gyroscope Sensor Working", Toast.LENGTH_SHORT).show();
 		}
 
+		Settings.System.putInt( getContext().getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
 
-//		int orientation = getResources().getConfiguration().orientation;
-//
-//		Toast.makeText(getContext(), "orientated = " + orientation, Toast.LENGTH_SHORT).show();
-//
-//		if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//			FirebaseDatabase database = FirebaseDatabase.getInstance();
-//			DatabaseReference myRef = database.getReference("gyroscope");
-//
-//			Toast.makeText(getContext(), "Saving Current Gyroscope Value", Toast.LENGTH_SHORT).show();
-//			myRef.setValue("x: 0, y: 0, x: 0");
-//		}
 
 		xAxisGyroscopeText = (TextView) view.findViewById(R.id.xAxisGyroscopeID);
 		yAxisGyroscopeText = (TextView) view.findViewById(R.id.yAxisGyroscopeID);
 		zAxisGyroscopeText = (TextView) view.findViewById(R.id.zAxisGyroscopeID);
 
-//		xAxisGyroscopeText.setText("ok");
-
-//		Button btn = view.findViewById(R.id.loadDataID);
-//		btn.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View view) {
-//
-//			}
-//		});
 		return view;
 	}
 
