@@ -3,12 +3,15 @@ package com.idp.group1.assignment201714029;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.ColorFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.provider.Settings;
@@ -29,19 +32,20 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Gyroscope extends Fragment implements SensorEventListener  {
 
 	private TextView xAxisGyroscopeText, yAxisGyroscopeText, zAxisGyroscopeText;
-	private Fragment fragment;
-	private LinearLayout linearLayout;
 	private SensorManager sensorManager;
 	private Sensor gyroscope;
-	private FirebaseDatabase database;
 	private DatabaseReference myRef;
-	private int prevOrientation;
+	private int prevOrientation = 0;
 	private Value maxValue;
 
 	public Gyroscope() {
 		// Required empty public constructor
 	}
 
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,9 +53,9 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_gyroscope, container, false);
 
-		maxValue = new Value();
+		maxValue = new Value(0, 0, 0);
 		prevOrientation = 0;
-		database = FirebaseDatabase.getInstance();
+		FirebaseDatabase database = FirebaseDatabase.getInstance();
 		myRef = database.getReference("Gyroscope");
 
 		sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
@@ -67,8 +71,9 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 			Toast.makeText(getContext(), "Gyroscope Sensor Working", Toast.LENGTH_SHORT).show();
 		}
 
-		Settings.System.putInt( getContext().getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
+//		Settings.System.putInt( getContext().getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
 
+		Toast.makeText(getContext(), "turn on auto Rotation", Toast.LENGTH_SHORT).show();
 
 		xAxisGyroscopeText = (TextView) view.findViewById(R.id.xAxisGyroscopeID);
 		yAxisGyroscopeText = (TextView) view.findViewById(R.id.yAxisGyroscopeID);
@@ -99,18 +104,25 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 		int orientation = getResources().getConfiguration().orientation;
 		Value v = new Value(xGyroscope, yGyroscope, zGyroscope);
 
-		if (maxValue.significant() > v.significant()) {
-			maxValue = v;
+		if (v.significant() > maxValue.significant()) {
+			maxValue.x = v.x;
+			maxValue.y = v.y;
+			maxValue.z = v.z;
+//			Toast.makeText(getContext(), maxValue.toString(), Toast.LENGTH_SHORT).show();
 		}
 
 		if (orientation == Configuration.ORIENTATION_LANDSCAPE && prevOrientation == 0) {
+//			Toast.makeText(getContext(),"max = " +  maxValue.toString(), Toast.LENGTH_LONG).show();
+//			Value save = new Value(maxValue.x, maxValue.y, maxValue.z);
+
+			myRef.child(myRef.push().getKey()).setValue(new Value(maxValue.x, maxValue.y, maxValue.z));
 			prevOrientation = 1;
-			Toast.makeText(getContext(), "Saving Current Gyroscope Value", Toast.LENGTH_SHORT).show();
-			myRef.child(myRef.push().getKey()).setValue(maxValue);
+			Toast.makeText(getContext(), "Saving Current Gyroscope Value ", Toast.LENGTH_LONG).show();
 		}
-		else {
+		else if (orientation == Configuration.ORIENTATION_PORTRAIT){
 			prevOrientation = 0;
-			maxValue.x = maxValue.y = maxValue.z = 0.0;
+//			maxValue.x = maxValue.y = maxValue.z = 0.0;
+//			Toast.makeText(getContext(), "00000000000000000000000000000000" + maxValue.toString(), Toast.LENGTH_SHORT).show();
 		}
 
 		xAxisGyroscopeText.setText(String.valueOf(xGyroscope));

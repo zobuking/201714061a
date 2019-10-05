@@ -61,9 +61,15 @@ public class map extends Fragment implements OnMapReadyCallback {
 
 	private void getLocation() {
 		Toast.makeText(getContext(), "button Clicked", Toast.LENGTH_SHORT).show();
+		fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+//		if (fusedLocationProviderClient == null) {
+//
+//		}
 		fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
 			@Override
 			public void onSuccess(Location location) {
+
 				if (location != null) {
 					latitude = location.getLatitude();
 					longitude = location.getLongitude();
