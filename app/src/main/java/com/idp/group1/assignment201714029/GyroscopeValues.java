@@ -29,10 +29,10 @@ import java.util.List;
  */
 public class GyroscopeValues extends Fragment {
 
-	ListView listView;
+	private ListView listView;
 	private ArrayList<Value> gyroscopeDataList;
-	DatabaseReference databaseReference;
-	int num = 1;
+	private DatabaseReference databaseReference;
+	private int num = 1;
 
 	public GyroscopeValues() {
 //		Toast.makeText(getContext(), "construct", Toast.LENGTH_SHORT).show();
@@ -47,7 +47,7 @@ public class GyroscopeValues extends Fragment {
 		// Inflate the layout for this fragment
 
 		View view =  inflater.inflate(R.layout.fragment_gyroscope_values, container, false);
-		listView = view.findViewById(R.id.listViewID);
+		listView = (ListView) view.findViewById(R.id.listViewID);
 
 		retrieve();
 
@@ -74,6 +74,8 @@ public class GyroscopeValues extends Fragment {
 //					data.add(v);
 					num++;
 				}
+				CustomAdapter customAdapter = new CustomAdapter(getActivity(), gyroscopeDataList);
+				listView.setAdapter(customAdapter);
 			}
 
 			@Override
@@ -82,10 +84,10 @@ public class GyroscopeValues extends Fragment {
 			}
 		});
 
-		CustomAdapter customAdapter = new CustomAdapter(getActivity(), gyroscopeDataList);
-		listView.setAdapter(customAdapter);
-
 		Toast.makeText(getActivity(), String.valueOf(gyroscopeDataList.size()), Toast.LENGTH_SHORT).show();
+
+
+
 	}
 
 }
