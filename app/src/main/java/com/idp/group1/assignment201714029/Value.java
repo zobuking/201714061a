@@ -17,6 +17,11 @@ public class Value {
 		z = 0.0;
 	}
 
+	public double significant() {
+		double ret = x*x + y*y + z*z;
+
+		return ret;
+	}
 
 
 	@NonNull
