@@ -3,6 +3,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	tools:context=".map">
 
 	<!-- TODO: Update blank fragment layout -->
@@ -14,4 +15,15 @@
 		android:layout_height="match_parent"
 		tools:context=".MapsActivity" />
 
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="end|bottom"
+		android:id="@+id/floatingButtonID"
+		android:layout_marginBottom="50dp"
+		android:layout_marginEnd="20dp"
+		app:fabSize="normal"
+		android:src="@drawable/location"
+		android:backgroundTint="@color/colorPrimary"
+		/>
 </FrameLayout>
