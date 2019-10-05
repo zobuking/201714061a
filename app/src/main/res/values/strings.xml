@@ -22,4 +22,8 @@
 	<string name="current_value_of_proximity_sensor">Current Value of Proximity SenSor</string>
 	<string name="load_data">load data</string>
 	<string name="prev_data">Prev Data :</string>
+	<string name="title_activity_maps">Map</string>
+	<string name="shake_me">Shake Me</string>
+	<string name="gyroscope_value">Gyroscope Values</string>
+	<string name="text">text</string>
 </resources>

@@ -60,7 +60,7 @@ public class Shake_detection extends Fragment implements SensorEventListener{
 
 		shake = shake*0.9f + delta;
 
-		if (shake > 5) {
+		if (shake > 10) {
 			Toast.makeText(getContext(), "shake detected", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(Intent.ACTION_DIAL);
 			intent.setData(Uri.parse("tel:911"));

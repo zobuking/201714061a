@@ -11,6 +11,9 @@
 			android:id="@+id/nav_Gyroscope"
 			android:title="@string/gyroscope" />
 		<item
+			android:id="@+id/nav_GyroscopeValues"
+			android:title="@string/gyroscope_value"/>
+		<item
 			android:id="@+id/nav_Proximity"
 			android:title="@string/proximity" />
 		<item

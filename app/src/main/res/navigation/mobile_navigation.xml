@@ -25,4 +25,10 @@
 		android:name="com.idp.group1.assignment201714029.Shake_detection"
 		android:label="@string/shake_detection"
 		tools:layout="@layout/fragment_shake_detection" />
+	<fragment
+		android:id="@+id/nav_GyroscopeValues"
+		android:name="com.idp.group1.assignment201714029.GyroscopeValues"
+		android:label="@string/gyroscope_value"
+		tools:layout="@layout/fragment_gyroscope_values"/>
+
 </navigation>

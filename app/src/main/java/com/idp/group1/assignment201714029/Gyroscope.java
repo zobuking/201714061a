@@ -3,7 +3,6 @@ package com.idp.group1.assignment201714029;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,22 +11,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 /**
@@ -35,7 +27,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
  */
 public class Gyroscope extends Fragment implements SensorEventListener  {
 
-	private TextView xAxisGyroscopeText, yAxisGyroscopeText, zAxisGyroscopeText, prevData;
+	private TextView xAxisGyroscopeText, yAxisGyroscopeText, zAxisGyroscopeText;
 	private Fragment fragment;
 	private LinearLayout linearLayout;
 	private SensorManager sensorManager;
@@ -55,25 +47,27 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 		View view = inflater.inflate(R.layout.fragment_gyroscope, container, false);
 
 		database = FirebaseDatabase.getInstance();
-		myRef = database.getReference("gyroscope");
-		prevData = view.findViewById(R.id.loadDataID);
+		myRef = database.getReference("Gyroscope");
+//		prevData = view.findViewById(R.id.loadDataID);
 
-		myRef.addValueEventListener(new ValueEventListener() {
-			@Override
-			public void onDataChange(DataSnapshot dataSnapshot) {
-				String value = dataSnapshot.getValue(String.class);
-				prevData.setText("Previous Data = " + value);
-			}
-
-			@Override
-			public void onCancelled(DatabaseError error) {
-				// Failed to read value
-				Log.w(TAG, "Failed to read value.", error.toException());
-			}
-		});
+//		myRef.addValueEventListener(new ValueEventListener() {
+//			@Override
+//			public void onDataChange(DataSnapshot dataSnapshot) {
+//				String Value = dataSnapshot.getValue(String.class);
+//				prevData.setText("Previous Data = " + Value);
+//			}
+//
+//			@Override
+//			public void onCancelled(DatabaseError error) {
+//				// Failed to read Value
+//				Log.w(TAG, "Failed to read Value.", error.toException());
+//			}
+//		});
 		sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
 		gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 		sensorManager.registerListener(this, gyroscope, sensorManager.SENSOR_DELAY_NORMAL);
+
+		myRef.child(myRef.push().getKey()).setValue(new Value(0, 0, 0));
 
 		if (gyroscope == null) {
 			Toast.makeText(getContext(), "No Gyroscope Sensor Found", Toast.LENGTH_SHORT).show();
@@ -114,7 +108,7 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 	@Override
 	public void onSensorChanged(SensorEvent sensorEvent) {
 
-		Toast.makeText(getContext(), "entered", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(getContext(), "entered", Toast.LENGTH_SHORT).show();
 
 //		xAxisGyroscopeText.setText("ok too");
 		double xGyroscope = (double) sensorEvent.values[0];
@@ -134,7 +128,7 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 
 		if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
 			Toast.makeText(getContext(), "Saving Current Gyroscope Value", Toast.LENGTH_SHORT).show();
-			myRef.setValue("x: " + xGyroscope + ", y: " + yGyroscope + ", z: " + zGyroscope);
+			myRef.child(myRef.push().getKey()).setValue(new Value(xGyroscope, yGyroscope, zGyroscope));
 		}
 
 		xAxisGyroscopeText.setText(String.valueOf(xGyroscope));
