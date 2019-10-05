@@ -17,6 +17,8 @@ public class Value {
 		z = 0.0;
 	}
 
+
+
 	@NonNull
 	@Override
 	public String toString() {

@@ -34,6 +34,7 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 	private Sensor gyroscope;
 	private FirebaseDatabase database;
 	private DatabaseReference myRef;
+	private int prevOrientation;
 
 	public Gyroscope() {
 		// Required empty public constructor
@@ -46,6 +47,7 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_gyroscope, container, false);
 
+		prevOrientation = 0;
 		database = FirebaseDatabase.getInstance();
 		myRef = database.getReference("Gyroscope");
 //		prevData = view.findViewById(R.id.loadDataID);
@@ -67,7 +69,7 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 		gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 		sensorManager.registerListener(this, gyroscope, sensorManager.SENSOR_DELAY_NORMAL);
 
-		myRef.child(myRef.push().getKey()).setValue(new Value(0, 0, 0));
+		myRef.child(myRef.push().getKey()).setValue(new Value(-5, -7, 0));
 
 		if (gyroscope == null) {
 			Toast.makeText(getContext(), "No Gyroscope Sensor Found", Toast.LENGTH_SHORT).show();
@@ -126,9 +128,13 @@ public class Gyroscope extends Fragment implements SensorEventListener  {
 
 		int orientation = getResources().getConfiguration().orientation;
 
-		if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+		if (orientation == Configuration.ORIENTATION_LANDSCAPE && prevOrientation == 0) {
+			prevOrientation = 1;
 			Toast.makeText(getContext(), "Saving Current Gyroscope Value", Toast.LENGTH_SHORT).show();
 			myRef.child(myRef.push().getKey()).setValue(new Value(xGyroscope, yGyroscope, zGyroscope));
+		}
+		else {
+			prevOrientation = 0;
 		}
 
 		xAxisGyroscopeText.setText(String.valueOf(xGyroscope));
